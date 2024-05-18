@@ -1,0 +1,65 @@
+{% extends "../Admin_index.html" %}
+{% load static %}
+{% block extra-css %}<link rel="stylesheet" href="{% static 'css/service.css' %}" type="text/css">{% endblock %} 
+{% block content %}
+<br>
+    <h2 style="text-align: center; margin-top: 30px;">SERVICE REQUESTS</h2>
+    <br>
+  <form method="post" action="{% url 'viewService' pk=service.pk %}">
+    {% csrf_token %}
+  <div class="container shadow-container">
+    <h2>{{ service.Customer_Name }}</h2>
+    <br>
+    
+    <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Profession</label>
+          <input type="text" class="form-control" placeholder=""  required value="{{ service.Customer_Profession }}" readonly>
+        </div>
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Contact Number</label>
+          <input type="text" class="form-control" placeholder=""  required value="{{ service.Customer_PhoneNumber }}" readonly>
+        </div>
+      </div> 
+      <br>
+      <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Email</label>
+          <input type="text" class="form-control" placeholder=""  required value="{{ service.Customer_Email }}" readonly>
+        </div>
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Preffered Date</label>
+          <input type="text" class="form-control" placeholder=""  required value="{{ service.Preferred_Date }}" readonly>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Model Name</label>
+          <input type="text" class="form-control" placeholder=""  required value="{{ service.Bike_Model_Name }}" readonly>
+        </div>
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Status</label>
+          <input type="text" class="form-control" placeholder=""  required value="{{ service.Order_Status }}" readonly>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Service Type</label>
+          <input type="text" class="form-control" placeholder=""  required value="{{ service.service_type }}" readonly>
+        </div>
+      </div>
+      <br> <br>
+      <div class="button" style="margin-left: 40%;">
+        <button type="submit" name="status" value="Request_Accepted" class="btn btn-success" style="height: 44px; width: 134px;">Accept</button>
+       <button type="submit" name="status" value="Request_Canceled" style="height: 44px; width: 134px;" class="btn btn-danger">Decline</button>
+
+      </div>
+      
+  </div>
+</form>
+<br>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "../Staff_index.html" %}
+{% block content %}
+</br>
+<h1>Searched Job Card</h1>
+
+</br>
+
+<div class = "content-section">
+    <table class= "table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Jobcard Number</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Model</th>
+                <th scope="col">Service Type</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in searchJobcards %}
+            <tr style = "curser: pointer; curser: hand;" onclick="window.location = '{% url 'Staff-JobCard-View' i.id %}'">
+                <th scope = "row">
+                    {{ forloop.counter }}
+                </th>
+                <th scope = "row">
+                    {{ i.customer_name }}
+                </th>
+                <th scope = "row">
+                    {{ i.jobcard_number }}
+                </th>
+                <th scope = "row">
+                    {{ i.customer_phonenumber }}
+                </th>
+                <th scope = "row">
+                    {{ i.bike_model }}
+                </th>
+                <th scope = "row">
+                    {{ i.service_type }}
+                </th>
+                <th scope = "row">
+                    {{ i.issued_DateTime }}
+                </th>
+                
+            </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+</div>
+{% endblock %}

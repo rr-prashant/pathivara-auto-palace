@@ -1,0 +1,391 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png"  href="{% static 'images/logo.png' %}">
+    <title>Pathivara Auto Palace</title>
+    <meta name="description" content="Pathivara Auto Palace | Your go-to garage for automotive repair and bike maintenance services. We provide top-notch auto service for all your vehicle repair needs.">
+    <meta name="keywords" content="Pathivara Auto Palace, garage, automotive repair, bike maintenance, auto service, vehicle repair">
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+    <style>
+        .buttonBook{
+    background: hsl(250, 69%, 64%);
+    padding: 10px 20px;
+    display: inline-block;
+    margin: 30px 0;
+    border-radius: 12px;
+    transition: background 0.4s;
+    border: 2px solid transparent;
+        }
+
+        .buttonBook a{ /* CSS for buttons SignIn and CV */
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    color: floralwhite;
+}
+
+.buttonBook:hover{ /*Hover CSS for buttons SignIN and CV*/
+            background-color: hsl(250, 69%, 58%);
+        }
+
+        .servicetype{
+            height: 43px;
+            margin-top: 6px; 
+            width: 585px; 
+            padding: 10px 10px;
+
+        }
+
+        .servicedate{
+            height: 43px;
+            margin-top: 6px; 
+            width: 585px; 
+            padding: 10px 10px;
+
+        }
+
+        @media (max-width: 450px) {
+            .servicetype{
+                height: 35px;
+                margin-top: 6px; 
+                width: 170px; 
+                padding: 10px 10px;
+    
+            }
+
+            .servicedate{
+                height: 35px;
+                margin-top: 6px; 
+                width: 170px; 
+                padding: 10px 10px;
+    
+            }
+          }
+    </style>
+
+</head>
+<body>
+
+{% for info in infos %}
+    
+<!-- header section starts  -->
+
+<header class="header">
+
+    <a href="#" class="logo"> {{ info.Website_name }} </a>
+
+
+    <div class="icons">
+        <div id="menu-btn" class="fas fa-bars"></div>
+    </div>
+    
+</header>
+
+<!-- header section ends  -->
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <span>welcome Riders</span>
+        <h3>{{ info.Website_name }}</h3>
+        <p>{{ info.Website_desc }}</p>
+        <button class="buttonBook"><a href="#book">Book Service</a></button>
+    </div>
+
+    <div class="image">
+        <img src="{% static 'images/cafe.jpg' %}" alt="" class="home-img">
+    </div>
+
+</section>
+
+<!-- home section ends  -->
+
+
+
+<!-- about section starts  -->
+
+<section class="about reveal" id="about">
+
+    <div class="image">
+        <img src="{% static 'images/222.png' %}" alt="">
+    </div>
+
+    <div class="content">
+        <br>
+        <span>why choose us?</span>
+        <h3 class="title">what makes our service better!</h3>
+        <p>At Pathivara Auto Palace, we stand out by offering top-notch motorcycle services. Our team of certified technicians is passionate about motorcycles and highly skilled. With cutting-edge facilities, we provide efficient diagnoses and tailored solutions for your bike's needs. We prioritize your satisfaction, addressing your concerns and keeping you informed. Choose us for a motorcycle service that's truly exceptional.</p>
+        <div class="icons-container">
+            {% for service in services %}
+            <div class="icons">
+                <img src="{{ service.service_icon.url }}" alt="">
+                <h3>{{ service.service_title}} </h3>
+            </div> 
+            {% endfor services %}          
+        </div>
+        <br>
+    </div>
+
+</section>
+
+<!-- about section ends -->
+
+<!-- order section starts  -->
+<br>
+
+<section class="book reveal" id="book">
+    <br>
+
+    <div class="heading">
+        <span>Book Now</span>
+        <h3>Booking for your service made easier</h3>
+    </div>
+
+    <form method="POST" action="" id="serviceRequestForm">
+
+        {% csrf_token %}
+        <div class="flex">
+            <div class="inputBox">
+                <span>Your name</span>
+                <input type="text" name="Customer_Name" required>
+            </div>
+            <div class="inputBox">
+                <span>Your email</span>
+                <input type="email" name="Customer_Email" required>
+            </div>
+        </div>
+        <br>
+        <div class="flex">
+            <div class="inputBox">
+                <span>Your address</span>
+                <input type="text" name="Customer_Address">
+            </div>
+            <div class="inputBox">
+                <span>Your contact number</span>
+                <input type="tel" name="Customer_PhoneNumber" required>
+            </div>
+        </div>
+        <br>
+        <div class="flex">
+            <div class="inputBox">
+                <span>Your profession</span>
+                <input type="text" name="Customer_Profession" required>
+            </div>
+            <div class="inputBox">
+                <span>Preferred Date & Time</span>
+                <input class="servicedate" type="datetime-local" name="Preferred_Date" required>
+            </div>
+        </div>
+        <br>
+        <div class="flex">
+            <div class="inputBox">
+                <span>Bike Model Name</span>
+                <input type="text" name="Bike_Model_Name" required>
+            </div>
+            <div class="inputBox">
+                <span>Preferred service type</span>
+                <br>
+                <select class = "servicetype" name="service_type">
+                    <option value="Paid Service">Paid Service</option>
+          <option value="Accidental">Accidental</option>
+          <option value="AMC">AMC</option>
+          <option value="QRC">QRC</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <br>
+        <input type="submit" value="Book service" class="btn">
+
+    </form>
+
+</section>
+
+<!-- order section ends -->
+
+<!-- banner section starts  -->
+
+<br>
+<section class="gallery reveal" id="gallery">
+
+    <div class="heading">
+        <span>Gallery</span>
+        <h3>Our Inside View</h3>
+    </div>
+
+    <div class="grid-gallery">
+        {% for i in gallery %}
+        <div class="grid">
+            <img src="{{ i.Picture.url }}" alt="">
+        </div>
+        {% endfor gallery %}
+        {% comment %} {% for picture in gallery %}
+        <div class="grid">
+            <img src="{{ picture.Picture }}" alt="">
+        </div>
+        {% endfor gallery %} {% endcomment %}
+    </div>
+
+</section>
+
+<!-- banner section ends -->
+<br>
+<section class="contact reveal" id="contact">
+    <div class="heading">
+        <span>Location</span>
+        <h3>Our location</h3>
+    </div>
+       
+    <div class="addressMap">
+        <div class="flex">   
+            <div class="inputBox">
+                <iframe class="map" src="{{ info.googlemap_link }}" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- order section ends -->
+
+
+<section class="footer reveal">
+    <div class="newsletter">
+        <h3>{{ info.Website_name }}</h3>
+    </div>
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>Address</h3>
+            <p>{{ info.Admin_address }}</p>
+            <h3>Contact</h3>
+            <p>{{ info.Admin_phonenumber }}</p>
+        </div>
+
+        <div class="box">
+            <h3>Email</h3>
+            <p>{{ info.Admin_email }}</p>
+            <h3>opening hours</h3>
+            <p>{{ info.Opening_hours }}</p>
+        </div>
+
+    </div>
+
+    <div class="bottom">
+        <div class="share">
+            <a href="{{info.facebook_link}}" class="fab fa-facebook-f"></a>
+            <a href="https://wa.me/+9779801717175" class="fab fa-whatsapp"></a>
+        </div>
+        <br>
+        <p style="font-size: 15px;">
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            &copy; Copyright <script> document.write(new Date().getFullYear());</script> Pathivara Auto Palace. All rights reserved | Powered by <a href="https://quadtechsnp.com/">QuadTechs</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        </p>
+    </div>
+    
+        
+    </div>
+
+</section>
+
+<!-- footer section ends --> 
+
+<!-- custom js file link  -->
+<script src=" {% static 'js/script.js' %}"></script>
+
+<script type="text/javascript">window.addEventListener('scroll', reveal);
+    function reveal(){
+      var reveals = document.querySelectorAll('.reveal');
+      for(var i= 0; i<reveals.length; i++){
+        var windowheight = window.innerHeight;
+        var revealtop = reveals[i].getBoundingClientRect().top;
+        var revealpoint = 150;
+  
+        if(revealtop <windowheight - revealpoint){
+          reveals[i].classList.add('active');
+        }
+        else{
+          reveals[i].classList.remove('active');
+        }
+      }
+    }</script>
+{% endfor %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Listen for form submission
+      document.getElementById('serviceRequestForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent default form submission
+    
+        // Perform AJAX form submission
+        fetch('{% url "Customer" %}', {
+          method: 'POST',
+          body: new FormData(this),
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest', // Set header to indicate AJAX request
+            'X-CSRFToken': '{{ csrf_token }}',    // Include CSRF token
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+              // Display SweetAlert toast on success
+              Swal.fire({
+                position: 'center',
+                width: '30%',
+                padding: '4%',
+                icon: 'success',
+                iconColor: '#119942',
+                title: 'Your booking has been sent',
+                color: '#0083cb',
+                background: '#fff',
+                //background: 'url("{% static 'images/carttoast.png' %}") center/cover no-repeat', // Set background image
+                showConfirmButton: false,
+                timer: 3000,
+                heightAuto: false,
+              });
+            }else if (!data.success) {
+              // Display SweetAlert toast on success
+              Swal.fire({
+                position: 'center',
+                width: '30%',
+                padding: '6%',
+                icon: 'error',
+                iconColor: '#ff0000',
+                title: 'Out of Stock',
+                color: '#0083cb',
+                background: '#fff',
+                //background: 'url("{% static 'images/out-of-stock.png' %}") center/cover no-repeat', // Set background image
+                showConfirmButton: false,
+                timer: 1500,
+                heightAuto: false,
+              }).then(() => {
+                location.reload();
+              });
+              
+            }
+          
+        })
+        .catch(error => {
+          console.error('An error occurred:', error);
+        });
+      });
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="sweetalert2.all.min.js"></script>
+</body>
+</html>

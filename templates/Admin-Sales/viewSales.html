@@ -1,0 +1,54 @@
+
+{% extends "../Admin_index.html" %} 
+{% load static %}
+{% block extra-css %}<link rel="stylesheet" href="{% static 'css/service.css' %}" type="text/css">{% endblock %}
+{% block content %}
+<br>
+    <h2 style="text-align: center; margin-top: 30px;">Sales</h2>
+    <br>
+  <div class="container shadow-container">
+   
+    
+    <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Part Name</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{sales.Part_Name}}" readonly>
+        </div>
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Part Number</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{sales.Part_Number}}" readonly>
+        </div>
+      </div> 
+      <br>
+      <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Quantity</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{sales.Quantity}}" readonly>
+        </div>
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Unit Price</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{sales.Unit_Price}}" readonly>
+        </div>
+      </div> <br>
+      <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Total Amount</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{sales.Total_Amount}}" readonly>
+        </div>
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Date</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{sales.Date}}" readonly>
+        </div>
+      </div>
+      <br>
+      <br>
+      {% comment %} <a class= "btn btn-success btn-sm mb-3" style="font-size: 16px;" href="{% url 'Admin-Update-Sales' sales.id %}"> Edit Sales
+    </a> {% endcomment %}
+    <a class = "btn btn-danger btn-sm" style="font-size: 16px; justify-content:center; margin-bottom:16px; margin-left:10px;" href="{% url 'Admin-Sales-Delete' sales.id %}"> Delete Sales
+    </a>
+      
+  </div>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </div>
+{% endblock %}  

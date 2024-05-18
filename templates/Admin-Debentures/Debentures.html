@@ -1,0 +1,56 @@
+{% extends "../Admin_index.html" %}
+{% block content %}
+<script>
+    function openNewPage(){
+        window.location.href="{% url 'Admin-Add-Debenture' %}";
+    }
+</script>
+</br>
+<h1>Debentures</h1>
+<div class="form-group pt-4">
+    <button class="btn btn-success" onclick = "openNewPage()" id="addButton">Add Debenture</button>
+</div>
+</br>
+<form class="d-flex" method="GET" action="{% url 'Admin-Search-Debenture' %}">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchDebentures">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+
+<div class = "content-section">
+    <table class= "table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Debenture Type</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in debenture %}
+            <tr style = "curser: pointer; curser: hand;" onclick="window.location = '{% url 'view_debenture' i.id %}'">
+                <th scope = "row">
+                    {{ forloop.counter }}
+                </th>
+                <th scope = "row">
+                    {{ i.Name }}
+                </th>
+                <th scope = "row">
+                    {{ i.Debenture_type }}
+                </th>
+                <th scope = "row">
+                   Rs. {{ i.Amount }}
+                </th>
+                <th scope = "row">
+                    {{ i.Date }}
+                </th>
+            </tr>
+            {% endfor %}
+        </br>
+    </br>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

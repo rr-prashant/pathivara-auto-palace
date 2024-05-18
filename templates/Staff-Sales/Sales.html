@@ -1,0 +1,166 @@
+{% extends "../Staff_index.html" %}
+{% block content %}
+
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      <strong>Message: </strong> {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+
+<script>
+    function openNewPage(){
+        window.location.href="#";
+    }
+</script>
+</br>
+<h1>Sales</h1>
+<div class="form-group pt-4">
+    <button class="btn btn-success" id="addButton">Add Sales</button>
+</div>
+</br>
+<form method="GET">
+  <div class="row">
+      <div class="col">
+          <div class="row">
+              <div class="col">
+                  <input type="date" class="form-control" placeholder="" required name="issued_Date" value="{{ request.GET.issued_Date }}">
+              </div>
+              <div class="col">
+                  <button class="btn btn-success" id="filterButton">Filter</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
+<br>
+
+<div class = "content-section">
+    <table class= "table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Part Name</th>
+                <th scope="col">Part Number</th>
+                <th scope="col">Unit Price</th>                
+                <th scope="col">Quantity</th>               
+                <th scope="col">Total</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in sales %}
+            <tr style = "curser: pointer; curser: hand;">
+                <th scope = "row">
+                    {{ forloop.counter }}
+                </th>
+                <th scope = "row">
+                    {{ i.Part_Name }}
+                </th>
+                <th scope = "row">
+                    {{ i.Part_Number }}
+                </th>
+                <th scope = "row">
+                    Rs. {{ i.Unit_Price }}
+                </th>
+                <th scope = "row">
+                    {{ i.Quantity }}
+                </th>
+                <th scope = "row">
+                    Rs. {{ i.Total_Amount }}
+                </th>
+                <th scope = "row">
+                    {{ i.Date }}
+                </th>               
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    $("#addButton").click(function() {
+        $("#chargesForm").modal("show");
+      });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#addButton").click(function () {
+            $("#chargesForm").modal("show");
+        });
+
+        // Handle the change event when selecting a part in the modal
+        $("#partSelect").change(function () {
+            var selectedOption = $(this).find(":selected");
+            var partNumber = selectedOption.data("part-number");
+            var unitPrice = selectedOption.data("unit-price");
+            var PartID = selectedOption.data("part-id");
+            
+            $("#partnumber").val(partNumber);
+            $("#unitprice").val(unitPrice);
+            $("#part_id").val(PartID);
+        });
+    });
+</script>
+
+
+<div id="chargesForm" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Sales</h5>
+        </div>
+        <div class="modal-body">
+            {{ form.media }} 
+          <form method ="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="partNumber">Part Name</label>
+              <select class="form-select form-select-sm" aria-label="Small select example" id="partSelect" name = "part_name">
+                <option selected>Select Part</option>
+                    {% for item in stocks %}
+                        <option value="{{ item.Part_Name }}" data-part-number="{{ item.Part_Number }}"
+                                data-unit-price="{{ item.Selling_Price }}" data-part-id="{{item.id}}">{{ item.Part_Name }}</option>
+                    {% endfor %}
+              </select>
+            </div>
+            <input type="number" class="form-control" id="part_id" name = "part_id" required style = "display:none;">
+            <div class="form-group">
+              <label for="partnumber">Part Number</label>
+              <input type="text" class="form-control" id="partnumber" name="part_number" required readonly>
+            </div>
+            <div class="form-group">
+                <label for="unitprice">Unit Price</label>
+                <input type="number" class="form-control" id="unitprice" name="price" required readonly>
+              </div>
+            <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" class="form-control" id="quantity" name = "quantity" required>
+            </div>
+            <br>
+            
+            <div class="button" style="margin-left: 40%;">
+              <button type="submit" class="btn btn-primary" style="height: 35px; width: 90px; text-align: center; background-color: #36A1D4;" type="submit">Add</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <script>
+		$(document).ready(function () {
+			$("#filterButton").click(function () {
+				$("form").submit();
+			});
+		});
+	  </script>
+{% endblock %}

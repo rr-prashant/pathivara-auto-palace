@@ -1,0 +1,83 @@
+
+{% extends "../Admin_index.html" %} 
+{% load static %}
+{% block extra-css %}<link rel="stylesheet" href="{% static 'css/service.css' %}" type="text/css">{% endblock %} 
+{% block content %}
+    <h2 style="text-align: center; margin-top: 30px;">Follow up</h2>
+    <br>
+  <div class="container shadow-container">
+
+    <form method="POST">
+      {% csrf_token %}
+   
+    
+    <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Customer Name</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{Review.Customer_Name}}" readonly>
+        </div>
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Phone Number</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{Review.Customer_Phonenumber}}" readonly>
+        </div>
+      </div> 
+      <br>
+      <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Bike Model</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{Review.Bike_Model}}" readonly>
+        </div>
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Service Type</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{Review.Service_Type}}" readonly>
+        </div>
+      </div> <br>
+      <div class="row">
+        <div class="col">
+            <label for="formGroupExampleInput" class="form-label">Registration Number</label>
+          <input type="text" class="form-control" placeholder=""  required value = "{{Review.registration_number}}" readonly>
+        </div>
+        <div class="col">
+          <label for="formGroupExampleInput" class="form-label">REVIEW STATUS *</label>
+          <select class="form-select" name="reviewStatus" required>
+            <option value="Pending" {% if Review.Review_Status == "Pending" %}selected{% endif %}>Pending</option>
+            <option value="Review_Done" {% if Review.Review_Status == "Review_Done" %}selected{% endif %}>Review Done</option>
+        </select>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+      <div class="col">
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Remarks</label>
+        <textarea class="form-control" name="feedback" id="exampleFormControlTextarea1" rows="3" readonly>{{Review.Remarks}}</textarea>
+      </div>
+    </div>
+    <div class="col">
+      <label for="formGroupExampleInput" class="form-label">FOLLOW UP STATUS *</label>
+      <select class="form-select" name="followUpStatus" required>
+        <option value="Pending" {% if Review.Follow_up_Status == "Pending" %}selected{% endif %}>Pending</option>
+        <option value="Follow_up_Done" {% if Review.Follow_up_Status == "Follow_up_Done" %}selected{% endif %}>Follow up Done</option>
+    </select>
+    </div>
+    </div>
+      <div class="row">
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">FEEDBACK *</label>
+        <textarea class="form-control" name="feedback" id="exampleFormControlTextarea1" rows="3">{{Review.Feedback}}</textarea>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Feedback</button>
+    <a class = "btn btn-danger btn-sm" style="font-size: 16px; justify-content:center; margin-left:10px;" href="{% url 'delete_review' Review.id %}"> Delete Feedback
+    </a>
+      
+  </div>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</form>
+
+    </div>
+{% endblock %}  
+
+

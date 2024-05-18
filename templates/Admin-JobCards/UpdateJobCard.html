@@ -1,0 +1,99 @@
+<!-- UpdateJobcard.html -->
+{% extends "../Admin_index.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block extra-css %}
+<style>.shadow-container {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  border-radius: 5px;
+}</style>
+{% endblock %}
+{% block content %}
+
+<br>
+<h2 style="text-align: center; margin-top: 30px;">Edit Job Card</h2>
+<br>
+<div class="container shadow-container">
+  <h4 style=" margin-top: 30px;">Job Card Information</h4>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        <label for="customer_name" class="form-label">Customer Name</label>
+        <input type="text" class="form-control" id="customer_name" name="customer_name" value="{{ job_card.customer_name }}" required>
+      </div>
+      <div class="col">
+        <label for="customer_address" class="form-label">Customer Address</label>
+        <input type="text" class="form-control" id="customer_address" name="customer_address" value="{{ job_card.customer_address }}" required>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label for="customer_phonenumber" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" id="customer_phonenumber" name="customer_phonenumber" value="{{ job_card.customer_phonenumber }}" required>
+      </div>
+      <div class="col">
+        <label for="customer_email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="customer_email" name="customer_email" value="{{ job_card.customer_email }}" required>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label for="engine_number" class="form-label">Engine Number</label>
+        <input type="text" class="form-control" id="engine_number" name="engine_number" value="{{ job_card.engine_number }}">
+      </div>
+      <div class="col">
+        <label for="chasis_number" class="form-label">Chasis Number</label>
+        <input type="text" class="form-control" id="chasis_number" name="chasis_number" value="{{ job_card.chasis_number }}">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label for="bike_model" class="form-label">Model</label>
+        <input type="text" class="form-control" id="bike_model" name="bike_model" value="{{ job_card.bike_model }}" required>
+      </div>
+      <div class="col">
+        <label for="registration_number" class="form-label">Registration Number</label>
+        <input type="text" class="form-control" id="registration_number" name="registration_number" value="{{ job_card.registration_number }}" required>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label for="ODO_meter_reading" class="form-label">Odo Meter Reading</label>
+        <input type="text" class="form-control" id="ODO_meter_reading" name="ODO_meter_reading" value="{{ job_card.ODO_meter_reading }}" required>
+      </div>
+      <div class="col">
+        <label for="service_type" class="form-label">Service Type</label>
+        <input type="text" class="form-control" id="service_type" name="service_type" value="{{ job_card.service_type }}" required>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <label for="issued_DateTime" class="form-label">Issued Date and Time</label>
+        <input type="datetime-local" class="form-control" id="issued_DateTime" name="issued_DateTime" value="{{ job_card.issued_DateTime|date:'Y-m-d\TH:i' }}" required>
+      </div>
+      <div class="col">
+        <label for="DeliveryDateTime" class="form-label">Delivery Date and Time</label>
+        <input type="datetime-local" class="form-control" id="DeliveryDateTime" name="DeliveryDateTime" value="{{ job_card.DeliveryDateTime|date:'Y-m-d\TH:i' }}" required>
+      </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Update Job Card</button>
+  </form>
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+  {% endif %}
+</div>
+<br>
+{% endblock %}
+
+
+

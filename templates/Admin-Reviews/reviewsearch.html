@@ -1,0 +1,57 @@
+{% extends "../Admin_index.html" %}
+{% block content %}
+
+</br>
+<h1>Searched Follow up</h1>
+</br>
+<form class="d-flex" method="GET" action="{% url 'reviewsearch' %}">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="reviewsearch">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+
+<div class = "content-section">
+    <table class= "table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Bike_Model</th>
+                <th scope="col">Service_Type</th>
+                <th scope="col">Review_Status</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in searchreview %}
+            <tr style = "curser: pointer; curser: hand;" onclick="window.location = '{% url 'view_review' i.id %}'">
+                <th scope = "row">
+                    {{ forloop.counter }}
+                </th>
+                <th scope = "row">
+                    {{ i.Customer_Name }}
+                </th>
+                <th scope = "row">
+                    {{ i.Customer_Phonenumber }}
+                </th>
+                <th scope = "row">
+                    {{ i.Bike_Model }}
+                </th>
+                <th scope = "row">
+                    {{ i.Service_Type }}
+                </th>
+                <th scope = "row">
+                    {{ i.Review_Status }}
+                </th>
+                <th scope = "row">
+                    {{ i.Date }}
+                </th>
+            </tr>
+            {% endfor %}
+        </br>
+    </br>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
